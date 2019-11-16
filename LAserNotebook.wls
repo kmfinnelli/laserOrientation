@@ -7,7 +7,7 @@ lin={
  {0},
  {-1},
  {0}
-};
+}
 "lin:the incoming path of the laser [x,y,z]"
 ny45={
  {0},
@@ -104,9 +104,10 @@ dotlnBoth[\[Alpha],\[Beta]]*)
 "loutBoth: the outgoing path of the laser when the mirror was rotated by alpha and beta [x,y,z]"
 loutBoth[\[Alpha]_,\[Beta]_]:=lin-2*(dotlnBoth[\[Alpha],\[Beta]][[1,1]])*nBoth[\[Alpha],\[Beta]];
 
-Simplify[loutBoth[\[Alpha],\[Beta]]]
+"loutBoth"
+Style[Simplify[loutBoth[\[Alpha],\[Beta]]],FontColor->Purple]
 
-Style[Simplify[loutBoth[45\[Degree],0\[Degree]]],FontColor->Purple]
+Style[Simplify[loutBoth[45\[Degree],0\[Degree]]],FontColor->Purple];
 
 "We now have the path of the laser when it is reflected off a mirror that has been rotated from a 
 mirror that is 45 deg by an angle alpha around the x axis and beta around the z axis. Now we find 
@@ -114,7 +115,13 @@ where it lands at a final z position, zp"
 
 z1[\[Alpha]_,\[Beta]_]:=Simplify[loutBoth[\[Alpha],\[Beta]][[3,1]]]
 "z1[\[Alpha],\[Beta]]"
-z1[\[Alpha],\[Beta]];
+z1[\[Alpha],\[Beta]]
+x1[\[Alpha]_,\[Beta]_]:=Simplify[loutBoth[\[Alpha],\[Beta]][[1,1]]]
+"x1[\[Alpha],\[Beta]]"
+x1[\[Alpha],\[Beta]]
+y1[\[Alpha]_,\[Beta]_]:=Simplify[loutBoth[\[Alpha],\[Beta]][[2,1]]]
+"y1[\[Alpha],\[Beta]]"
+y1[\[Alpha],\[Beta]]
 
 zAdj[\[Alpha]_,\[Beta]_,zp_]:=zp/z1[\[Alpha],\[Beta]]
 "zAdj[\[Alpha],\[Beta],zp]"
@@ -122,7 +129,7 @@ zAdj[\[Alpha],\[Beta],zp];
 
 loutzp[\[Alpha]_,\[Beta]_,zp_]:=loutBoth[\[Alpha],\[Beta]]*zAdj[\[Alpha],\[Beta],zp]
 "loutzp[\[Alpha],\[Beta],zp]"
-Style[Simplify[loutzp[\[Alpha],\[Beta],zp]],FontColor-> Red];
+Style[Simplify[loutzp[\[Alpha],\[Beta],zp]],FontColor-> Red]
 
 "HERE"
 
@@ -311,18 +318,43 @@ dyiBeta=D[yiFunc,\[Beta]];
 Remove[\[Theta]]
 Remove[\[Phi]]
 
-\[Beta]=-0
 
+\[Theta][\[Alpha]_,\[Beta]_]=ArcCos[z1[\[Alpha],\[Beta]]/Sqrt[x1[\[Alpha],\[Beta]]^2+y1[\[Alpha],\[Beta]]^2+z1[\[Alpha],\[Beta]]^2]]
+Simplify[\[Theta][\[Alpha],\[Beta]]]
+\[Phi]a[\[Alpha]_,\[Beta]_]=ArcTan[x1[\[Alpha],\[Beta]],y1[\[Alpha],\[Beta]]]
+Simplify[\[Phi]a[\[Alpha],\[Beta]]]
 
-"In TPC Coordinates, converting "
+(* 
+This phi may depend on the quadrant (x,y) is in
+
+not always accurate to observe phi =arctan(y/x)
+
+which is correct only when x > 0. When x < 0, the angle apparent from the expression above is pointing 
+in the opposite direction of the correct angle and a value of \[Pi] (or 180\[Degree]) must be either added or 
+subtracted from \[Theta] to put the cartesian point (x,y) into the correct quadrant of the Euclidean plane
+This requires knowledge of the signs of x and y separately, which is information lost when y is divided by x.
+
+Since any integer multiple of 2\[Pi] can be added to the angle phi without changing either x or y, implying 
+an ambiguous value for the returned value, the principal value of the angle, in the interval (-\[Pi], \[Pi]] 
+is returned. phi is signed, with counterclockwise angles being positive, and clockwise being negative. 
+Specifically, atan2(y,x) is in the interval [0, \[Pi]] when y \[GreaterEqual] 0, and in (\[Minus]\[Pi], 0) when y < 0.
+*)
+
+\[Beta]=0\[Degree]
+Simplify[\[Theta][\[Alpha],\[Beta]]]
+Simplify[\[Phi]a[\[Alpha],\[Beta]]]
+
+Plot[{\[Theta][\[Alpha],\[Beta]],\[Phi]a[\[Alpha],\[Beta]]},{\[Alpha],0,\[Pi]/2},PlotLegends->"Expressions"]
+
+(*"In TPC Coordinates, converting "
 \[Theta]=ArcCos[-Cos[\[Alpha]](Cos[\[Beta]])^2]
 \[Phi]=ArcCot[(-2Cos[\[Beta]]Sin[\[Beta]](Cos[\[Alpha]])^2)/(-1+2(Cos[\[Alpha]])^2(Cos[\[Beta]])^2)]
 \[Phi]1=ArcCos[-2Cos[\[Beta]]Csc[\[Theta]]Sin[\[Beta]](Cos[\[Alpha]])^2]
 \[Phi]2=ArcSin[Csc[\[Theta]](-1+2(Cos[\[Alpha]])^2(Cos[\[Beta]])^2)]
 
-Plot[{\[Theta],\[Phi],\[Phi]1,\[Phi]2},{\[Alpha],0,\[Pi]/2},PlotLegends->"Expressions"]
+Plot[{\[Theta],\[Phi],\[Phi]1,\[Phi]2},{\[Alpha],0,\[Pi]/2},PlotLegends->"Expressions"]*)
 
-(*Remove[\[Sigma]Alpha]*)
+(*Remove[\[Sigma]Alpha]
 
 (*\[Alpha]=ArcTan[(zp*Sin[\[Beta]])/(xi-xp)]
 
