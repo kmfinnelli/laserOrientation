@@ -45,7 +45,9 @@ rTot[\[Alpha]_,\[Beta]_]:=rz[\[Beta]].rx[\[Alpha]];
 MatrixForm[rTot[\[Alpha],\[Beta]]];
 
 (*MatrixForm[rAll[\[Alpha],\[Beta],\[Gamma]]]*)
-"NOW"
+
+
+"Alpha Only"
 
 nyAlpha[\[Alpha]_]:=rx[\[Alpha]].ny45;
 "nyAlpha: the normal vector after the mirror has been rotated around the x-axis by an angle alpha, with -45<alpha<45"
@@ -59,7 +61,6 @@ dotlnAlpha[\[Alpha]]
 "dotlnAlpha[15]"
 dotlnAlpha[15\[Degree]]*)
 
-
 "loutAlpha: the outgoing path of the laser when the mirror was rotated by alpha [x,y,z]"
 loutAlpha[\[Alpha]_]:=lin-2*(dotlnAlpha[\[Alpha]][[1,1]])*nyAlpha[\[Alpha]];
 
@@ -68,7 +69,10 @@ loutAlpha[\[Alpha]_]:=lin-2*(dotlnAlpha[\[Alpha]][[1,1]])*nyAlpha[\[Alpha]];
 Style[Simplify[loutAlpha[45\[Degree]]],FontColor\[Rule]Red]*)
 
 
-"NEXT"
+
+
+
+"Beta Only"
 
 "nxBeta: the normal vector after the mirror has been rotatated around the z-axis by an angle Beta, "
 nxBeta[\[Beta]_]:=rz[\[Beta]].ny45;
@@ -86,6 +90,8 @@ loutBeta[\[Beta]_]:=lin-2*(dotlnBeta[\[Beta]][[1,1]])*nxBeta[\[Beta]];
 
 Style[Simplify[loutBeta[-45\[Degree]]],FontColor\[Rule]Blue]*)
 
+
+
 "C-C-C-C-COMBO"
 nBoth[\[Alpha]_,\[Beta]_]:=rTot[\[Alpha],\[Beta]].ny45;
 (*"nBoth[\[Alpha]_,\[Beta]_]"
@@ -102,8 +108,9 @@ Simplify[loutBoth[\[Alpha],\[Beta]]]
 
 Style[Simplify[loutBoth[45\[Degree],0\[Degree]]],FontColor->Purple]
 
-"We now have the path of the laser when it is reflected off a mirror that has been rotated from a mirror that is 45 deg by an angle alpha around the x axis and beta around the z axis. Now we find where it lands at a final z position, zp"
-
+"We now have the path of the laser when it is reflected off a mirror that has been rotated from a 
+mirror that is 45 deg by an angle alpha around the x axis and beta around the z axis. Now we find 
+where it lands at a final z position, zp"
 
 z1[\[Alpha]_,\[Beta]_]:=Simplify[loutBoth[\[Alpha],\[Beta]][[3,1]]]
 "z1[\[Alpha],\[Beta]]"
@@ -119,10 +126,13 @@ Style[Simplify[loutzp[\[Alpha],\[Beta],zp]],FontColor-> Red];
 
 "HERE"
 
-"Because this is trying to find where the laser lands at vertical position zp, it will fail when alpha=0 because the laser will have no vertical change to get up to zp"
+"Because this is trying to find where the laser lands at vertical position zp, it will fail when 
+alpha=0 because the laser will have no vertical change to get up to zp"
 Style[Simplify[loutzp[45\[Degree],45\[Degree],zp]],FontColor-> CMYKColor[1,.1,0,.5]];
 
 
+
+"Get out how alpha and beta can affect the postion as x and y prime"
 
 xPrime[\[Alpha]_,\[Beta]_,zp_]:=Simplify[loutzp[\[Alpha],\[Beta],zp][[1,1]]]
 (*"xPrime[\[Alpha],\[Beta],zp]"
@@ -132,13 +142,11 @@ yPrime[\[Alpha]_,\[Beta]_,zp_]:=Simplify[loutzp[\[Alpha],\[Beta],zp][[2,1]]]
 (*"yPrime[\[Alpha],\[Beta],zp]"
 yPrime[\[Alpha],\[Beta],zp]*)
 
-"We now have the x and y offsets due to the rotation of the mirror. With this, we can get the total offset from the position of the beam pipe, [xp,yp,zp]. This is of the form 
+"We now have the x and y offsets due to the rotation of the mirror. With this, we can get 
+the total offset from the position of the beam pipe, [xp,yp,zp]. This is of the form 
 deltaX=xi+xPrime-xp
 deltaY=yi+yPrime-yp
 Where [xi,yi,zi] is the position of the final mirror where the laser hits"
-
-Remove[deltaX]
-Remove[deltaY]
 
 deltaX[\[Alpha]_,\[Beta]_,zp_,xi_,xp_]:=xi+xPrime[\[Alpha],\[Beta],zp]-xp
 "deltaX[\[Alpha],\[Beta],zp,xi,xp]"
@@ -170,7 +178,6 @@ ddeltaXalpha[\[Alpha]_,\[Beta]_,zp_,xi_,xp_]:=D[deltaX[\[Alpha],\[Beta],zp,xi,xp
 (*"ddeltaXalpha"
 ddeltaXalpha[\[Alpha],\[Beta],zp,xi,xp]*)
 
-
 "Partials of deltaY"
 
 ddeltaYyp[\[Alpha]_,\[Beta]_,zp_,yi_,yp_]:=D[deltaY[\[Alpha],\[Beta],zp,yi,yp],yp]
@@ -193,15 +200,16 @@ ddeltaYalpha[\[Alpha]_,\[Beta]_,zp_,yi_,yp_]:=D[deltaY[\[Alpha],\[Beta],zp,yi,yp
 (*"ddeltaYalpha"
 ddeltaYalpha[\[Alpha],\[Beta],zp,xi,xp]*) 
 
+
 "These are set as = not := because constants cannot be differentiated"
 
-sigmadeltaX[\[Alpha]_,\[Beta]_,zp_,xi_,xp_]=((ddeltaXxp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]xp^2+(ddeltaXxi[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]xi^2+(ddeltaXzp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]zp^2+(ddeltaXbeta[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Beta^2+(ddeltaXalpha[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Alpha^2)^(1/2);
+sigmadeltaX[\[Alpha]_,\[Beta]_,zp_,xi_,xp_]=((ddeltaXxp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]xp^2+(ddeltaXxi[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]xi^2+
+				(ddeltaXzp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]zp^2+(ddeltaXbeta[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Beta^2+(ddeltaXalpha[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Alpha^2)^(1/2);
 
-
-
-sigmadeltaY[\[Alpha]_,\[Beta]_,zp_,xi_,xp_]=((ddeltaYyp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]yp^2+(ddeltaYyi[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]yi^2+(ddeltaYzp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]zp^2+(ddeltaYbeta[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Beta^2+(ddeltaYalpha[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Alpha^2)^(1/2);
-
-
+sigmadeltaY[\[Alpha]_,\[Beta]_,zp_,xi_,xp_]=((ddeltaYyp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]yp^2+(ddeltaYyi[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]yi^2+
+				(ddeltaYzp[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]zp^2+(ddeltaYbeta[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Beta^2+(ddeltaYalpha[\[Alpha],\[Beta],zp,xi,xp])^2*\[Sigma]Alpha^2)^(1/2);
+	
+			
 "Simplify[sigmadeltaX[\[Alpha],\[Beta],zp,xi,xp]]"
 Simplify[sigmadeltaX[\[Alpha],\[Beta],zp,xi,xp]];
 
@@ -209,6 +217,13 @@ Simplify[sigmadeltaX[\[Alpha],\[Beta],zp,xi,xp]];
 Simplify[sigmadeltaY[\[Alpha],\[Beta],zp,xi,xp]];
 
 
+
+
+
+
+
+
+"Turn equations for delta x/y to xi/yi, to get equations for position in terms of angles."
 
 "Simplify[deltaX[\[Alpha],\[Beta],zp,xi,xp]]"
 Simplify[deltaX[\[Alpha],\[Beta],zp,xi,xp]];
@@ -234,7 +249,6 @@ Solve[deltaX[\[Alpha],\[Beta],zp,xi,xp]\[Equal]0&&deltaY[\[Alpha],\[Beta],zp,yi,
 Simplify[Solve[deltaX[\[Alpha],\[Beta],zp,xi,xp]\[Equal]0&&deltaY[\[Alpha],\[Beta],zp,yi,yp]==0,{\[Alpha],\[Beta]}]]
 *)
 
-
 (* Hardcopied Verion
 Simplify[Solve[xi-xp-(zp (Cos[\[Alpha]]-Sin[\[Alpha]]) Sin[\[Beta]])/(Cos[\[Alpha]]+Sin[\[Alpha]])==0,xi]]
 (*Solve[deltaX[\[Alpha],\[Beta],zp,xi,xp]==0,\[Alpha]]
@@ -245,25 +259,20 @@ Simplify[Solve[yi-yp-zp Cos[\[Beta]] Sec[2 \[Alpha]] (-Cos[\[Alpha]]^2+Sec[\[Bet
 (*Solve[deltaY[\[Alpha],\[Beta],zp,yi,yp]=0,\[Alpha]]
 Solve[deltaY[\[Alpha],\[Beta],zp,yi,yp]=0,\[Beta]]*)*)
 
+(*Simplify[Solve[(xi-xp-(zp (Cos[\[Alpha]]-Sin[\[Alpha]]) Sin[\[Beta]])/(Cos[\[Alpha]]+Sin[\[Alpha]]))==0&&(xi-xp-zp Cos[\[Beta]] Sec[2 \[Alpha]] 
+		(-Cos[\[Alpha]]^2+Sec[\[Beta]]^2-Sin[\[Alpha]]^2+Sin[2 \[Alpha]]))==0,{\[Alpha],\[Beta]}]]*)
 
 
 
-(*Simplify[Solve[(xi-xp-(zp (Cos[\[Alpha]]-Sin[\[Alpha]]) Sin[\[Beta]])/(Cos[\[Alpha]]+Sin[\[Alpha]]))==0&&(xi-xp-zp Cos[\[Beta]] Sec[2 \[Alpha]] (-Cos[\[Alpha]]^2+Sec[\[Beta]]^2-Sin[\[Alpha]]^2+Sin[2 \[Alpha]]))==0,{\[Alpha],\[Beta]}]]*)
 
 
 
 
-(*yiFunc
 
-Simplify[deltaY[\[Alpha],\[Beta],zp,yi,yp]]*)
 
-(*Plot[loutzp[\[Alpha],0,1],{\[Alpha],-40\[Degree],40\[Degree]}]*)
 
-(*xiFunc=(Sin[\[Alpha]] (xp-zp Sin[\[Beta]])+Cos[\[Alpha]] (xp+zp Sin[\[Beta]]))/(Cos[\[Alpha]]+Sin[\[Alpha]])
 
-yiFunc=yp-zp Cos[\[Alpha]]^2 Cos[\[Beta]] Sec[2 \[Alpha]]+Sec[2 \[Alpha]] (zp Sec[\[Beta]]-zp Cos[\[Beta]] Sin[\[Alpha]]^2)+zp Cos[\[Beta]] Tan[2 \[Alpha]]
-*)
-
+"Get partials of xi/yi to get error propagation of mirror position with respect to angles"
 
 "dxis"
 "alpha"
@@ -290,17 +299,19 @@ dyiBeta=D[yiFunc,\[Beta]];
 "sigmaa yiS"
 \[Sigma]yiS=Simplify[(dyiAlpha^2*\[Sigma]Alpha^2+dyiyp^2*\[Sigma]yp^2+dyizp^2*\[Sigma]zp^2+dyiBeta^2*\[Sigma]Beta^2)^(1/2)];
 
-"Error Propagations of xi and yi "
+"Error Propagations of xi and yi, HARDCOPIED IN, change result if above changes"
 "\[Sigma]xi"
 \[Sigma]xi=\[Sqrt](\[Sigma]xp^2 (1)^2+\[Sigma]Beta^2 (zp Cos[\[Beta]] Cot[\[Alpha]])^2+\[Sigma]zp^2 (Cot[\[Alpha]] Sin[\[Beta]])^2+\[Sigma]Alpha^2 (-zp Csc[\[Alpha]]^2 Sin[\[Beta]])^2)
 "\[Sigma]yi"
-\[Sigma]yi=\[Sqrt](\[Sigma]yp^2 (1)^2+\[Sigma]zp^2 (-Cos[\[Beta]] Cot[\[Alpha]]+Csc[2 \[Alpha]] Sec[\[Beta]])^2+\[Sigma]Alpha^2 (zp Cos[\[Beta]] Csc[\[Alpha]]^2-2 zp Cot[2 \[Alpha]] Csc[2 \[Alpha]] Sec[\[Beta]])^2+\[Sigma]Beta^2 (zp (Cot[\[Alpha]] Sin[\[Beta]]+Csc[2 \[Alpha]] Sec[\[Beta]] Tan[\[Beta]]))^2)
+\[Sigma]yi=\[Sqrt](\[Sigma]yp^2 (1)^2+\[Sigma]zp^2 (-Cos[\[Beta]] Cot[\[Alpha]]+Csc[2 \[Alpha]] Sec[\[Beta]])^2+\[Sigma]Alpha^2 (zp Cos[\[Beta]] Csc[\[Alpha]]^2-2 zp Cot[2 \[Alpha]] Csc[2 \[Alpha]] 
+			Sec[\[Beta]])^2+\[Sigma]Beta^2 (zp (Cot[\[Alpha]] Sin[\[Beta]]+Csc[2 \[Alpha]] Sec[\[Beta]] Tan[\[Beta]]))^2)
+
+
 
 Remove[\[Theta]]
 Remove[\[Phi]]
 
 \[Beta]=-0
-
 
 
 "In TPC Coordinates, converting "
@@ -325,6 +336,9 @@ Plot[{\[Theta],\[Phi],\[Phi]1,\[Phi]2},{\[Alpha],0,\[Pi]/2},PlotLegends->"Expres
 \[Sigma]AlphaBeta=D[\[Alpha],\[Beta]]
 
 \[Sigma]Alpha=\[Sqrt](\[Sigma]zp^2\[Sigma]Alphazp^2+\[Sigma]xi^2\[Sigma]Alphaxi^2+\[Sigma]xp^2\[Sigma]Alphaxp^2+\[Sigma]Beta^2\[Sigma]AlphaBeta^2)*)
+
+
+
 
 
 
