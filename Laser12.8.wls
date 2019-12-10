@@ -61,7 +61,6 @@ lout2pb={Sin[\[Theta]b]Cos[\[Phi]b],Sin[\[Theta]b]Sin[\[Phi]b],Cos[\[Theta]b]}; 
 "M2b=" 
 M2b={x1[\[Theta]b,\[Phi]b],y1[\[Theta]b,\[Phi]b],z1};*)
 
-(*Ross  . makes #'s worse*)
 "M2b="
 M2b=Mp+(Mhome[[3]]-Mp[[3]])/lout2pb[[3]]*lout2pb (*backwardM2c*)
 
@@ -100,17 +99,16 @@ the negative y-axis*)
 
 (*MINE*)
 "\[Alpha]2b="
-\[Alpha]2bt=ArcSin[-n2[[3]]];
-(*
+\[Alpha]2b=ArcSin[-n2[[3]]];
 "\[Beta]2b="
-\[Beta]2b=ArcTan[-n2[[2]],n2[[1]]];*)
+\[Beta]2b=ArcTan[-n2[[2]],n2[[1]]];
 
-(*Ross*)
+(*(*Ross*)
 
 "\[Beta]2b="
 \[Beta]2b=ArcCos[Normalize[n2-{0,0,n2[[3]]}].{0,-1,0}]; (*backward\[Beta]2*)
 "\[Alpha]2b="
-\[Alpha]2b=ArcTan[Sqrt[n2[[1]]^2+n2[[2]]^2],n2[[3]]]; (*backward\[Alpha]2*)
+\[Alpha]2b=ArcTan[Sqrt[n2[[1]]^2+n2[[2]]^2],n2[[3]]]; (*backward\[Alpha]2*)*)
 
 (*The normal vector of M1 can be found looking at the vectors going in and out of it, 
 getting the normal vector in terms of \[Theta] and \[Phi]*)
@@ -125,112 +123,39 @@ n1=(-lout01+lout12b)/Sqrt[2-2lout01.lout12b];*)
 "n1="
 n1=Normalize[-lout01+lout12b]; (*backwardN1c*)
 
-
-
-
-(*MINE
+MINE
 "\[Gamma]1b="
 \[Gamma]1b=ArcSin[-n1[[3]]];
 "\[Beta]1b="
-\[Beta]1b=ArcTan[-n1[[1]],n1[[2]]];*)
+\[Beta]1b=ArcTan[n1[[1]],n1[[2]]];
 
-(*Ross*)
+
+(*(*Ross*)
 
 "\[Beta]1b="
 \[Beta]1b=ArcCos[Normalize[n1-{0,0,n1[[3]]}].{1,0,0}]; (*backward\[Beta]1*)
 "\[Gamma]1b="
-\[Gamma]1b=ArcTan[Sqrt[n1[[1]]^2+n1[[2]]^2],n1[[3]]]; (*backward\[Gamma]1*)
-
-
-(* TEST VALUES *)
-
-"HOME"
-
-\[Theta]b=46.08\[Degree]
-\[Phi]b=135\[Degree]
-"\[Theta]b="
-\[Theta]b*180/\[Pi]
-"\[Phi]b="
-\[Phi]b*180/\[Pi]
-
-
-"M2-homeM2"
-M2b-Mhome
-
-Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
-
-
-
-"YMAX"
-
-\[Theta]b=84.69230033409917\[Degree];
-\[Phi]b=-93.91157181252866\[Degree];
-"\[Theta]b="
-\[Theta]b*180/\[Pi]
-"\[Phi]b="
-\[Phi]b*180/\[Pi]
-
-"M2-MyMAx"
-M2b-MyMax
-
-Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
-
-
-
-"XMAX"
-
-Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}]]
-
-(*\[Theta]b=84.69230033409917\[Degree]*)
-\[Theta]b=84.6414\[Degree]
-\[Phi]b=3.91157\[Degree]
-
-"\[Theta]b="
-\[Theta]b*180/\[Pi]
-"\[Phi]b="
-\[Phi]b*180/\[Pi]
-
-"M2-MxMax"
-M2b-MxMax
-M2b-Mhome
-
-Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
+\[Gamma]1b=ArcTan[Sqrt[n1[[1]]^2+n1[[2]]^2],n1[[3]]]; (*backward\[Gamma]1*)*)
 
 
 
 
 
-"XYMAX"
 
-\[Theta]b=86.23276652956393\[Degree]
-\[Phi]b=45.0\[Degree]
-"\[Theta]b="
-\[Theta]b*180/\[Pi]
-"\[Phi]b="
-\[Phi]b*180/\[Pi]
 
-"M2-MxyMax"
-M2b-MxyMax
 
-Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
-Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}]]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -243,48 +168,60 @@ n1Orig={1,0,0};
 
 (* Again, we can find this normal vector in therms of the mirror 1 angles. It rotates around
 the y-axis by angle \[Gamma]1 and around the z-axis by angle \[Beta]1*)
-ry1=RotationTransform[\[Gamma]1b,{0,1,0}];
-rz1=RotationTransform[\[Beta]1b,{0,0,1}];
+ry1=RotationTransform[\[Gamma]1f,{0,1,0}];
+rz1=RotationTransform[\[Beta]1f,{0,0,1}];
 
 "nAngle1="
-nAngle1=rz1[ry1[{1,0,0}]]; (*forwardN1*)
+nAngle1=rz1[ry1[{1,0,0}]] (*forwardN1*)
+
+(*"nAngle1="
+nAngle1=ry1[rz1[{1,0,0}]]; (*forwardN1*)*)
+
 
 "lout12f="
-lout12f=lout01-2(nAngle1.lout01)*nAngle1; (*forwardL1c*)
+lout12f=lout01-2(lout01.nAngle1)*nAngle1; (*forwardL1c*)
 
 (*Now send this laser to hit M2*)
 (*The original normal vector of M2*)
 n2Orign={0,-1,0}
 
-rx2=RotationTransform[\[Alpha]2b,{1,0,0}];
-rz2=RotationTransform[\[Beta]2b,{0,0,1}];
+rx2=RotationTransform[\[Alpha]2f,{1,0,0}];
+rz2=RotationTransform[\[Beta]2f,{0,0,1}];
 
 "nAngle2="
 nAngle2=rz2[rx2[{0,-1,0}]] (*forwardN2*)
 
+(*"nAngle2="
+nAngle2=rx2[rz2[{0,-1,0}]] (*forwardN2*)*)
+
 "lout2pf="
-lout2pf=lout12f-2(nAngle2.lout12f)*nAngle2; (*forwardL2c*)
+lout2pf=lout12f-2(lout12f.nAngle2)*nAngle2; (*forwardL2c*)
+
+M2f=Mp+(Mhome[[3]]-Mp[[3]])/lout2pf[[3]]*lout2pf;
+
+(*R2=IdentityMatrix[1]-2(nAngle2).(Transpose[nAngle2])
+
+lout2pf=R2.lout12f*)
 
 (*TPc Coordinates in terms of mirror angles*)
 
-(*MINE
+(*MINE*)
 "\[Theta]f="
 \[Theta]f=ArcCos[lout2pf[[3]]];
 "\[Phi]f="
-\[Phi]f=ArcTan[lout2pf[[1]],lout2pf[[2]]];*)
+\[Phi]f=ArcTan[lout2pf[[1]],lout2pf[[2]]];
 
-(*Ross*)
+(*(*Ross*)
 "\[Theta]f="
-\[Theta]f=ArcTan[lout2pf[[3]],Sqrt[lout2pf[[1]]^2+lout2pf[[2]]^2]] (*forward\[Theta]*)
+\[Theta]f=ArcTan[lout2pf[[3]],Sqrt[lout2pf[[1]]^2+lout2pf[[2]]^2]]; (*forward\[Theta]*)
 "\[Phi]f="
-\[Phi]f=ArcTan[lout2pf[[1]],lout2pf[[2]]] (*forward\[Phi]*)
+\[Phi]f=ArcTan[lout2pf[[1]],lout2pf[[2]]];(*forward\[Phi]*)*)
 
 
 
 
-(*Test Values*)
+(*(*Test Values*)
 
-SequenceForm[Column[{"\[Degree]=\[Beta]1b", 44.98588619333923 " "}], Column[{"\[Degree]=\[Gamma]1b", (-1.2715313780860467`) " "}], Column[{"\[Degree]=\[Beta]2b", 46.83909527306649 " "}], Column[{"\[Degree]=\[Alpha]2b", 5.197796762909511 " "}], Column[{"\[Degree]=\[Alpha]2bt", (-5.197796762909511) " "}]]
 
 "Xmax"
 (*my mirror angles*)
@@ -294,16 +231,8 @@ SequenceForm[Column[{"\[Degree]=\[Beta]1b", 44.98588619333923 " "}], Column[{"\[
 \[Alpha]2f=-5.197796762909511\[Degree]
 
 Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
-Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
-(*
-(*Ross's mirror angles*)
-\[Beta]1f=37.577829859724346\[Degree]
-\[Gamma]1f=-0.8142522235138099\[Degree]
-\[Beta]2f=9.383662383506968\[Degree]
-\[Alpha]2f=-3.3396843014085085\[Degree]
-
-Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
 Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]*)
+
 
 
 (*Putting things together*)
@@ -314,18 +243,19 @@ Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]*)
 "\[Phi]s="
 \[Phi]s=ArcTan[xp-x1s,yp-y1s];
 
-Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
+(*Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
-Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
+Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]*)
 
 y1s=y1Home
-\[Alpha]2b
+\[Alpha]2b;
 \[Theta]b=\[Theta]s
 \[Phi]b=\[Phi]s
 
 Plot[\[Alpha]2b*180/\[Pi],{x1s,x1Home,x1Max}]
+
 
 
 (*Test Values*)
@@ -334,13 +264,13 @@ Plot[\[Alpha]2b*180/\[Pi],{x1s,x1Home,x1Max}]
 x1s=x1Home
 y1s=y1Home
 
-Print[Column[{"\[Degree]=\[Theta]"," "\[Theta]s*180/\[Pi]}],
-Column[{"\[Degree]=\[Phi]"," "\[Phi]s*180/\[Pi]}]]
+Print[Column[{"\[Degree]=\[Theta]s"," "\[Theta]s*180/\[Pi]}],
+Column[{"\[Degree]=\[Phi]s"," "\[Phi]s*180/\[Pi]}]]
 
 \[Theta]b=\[Theta]s
 \[Phi]b=\[Phi]s
 
-"M2-homeM2"
+"M2b-homeM2"
 M2b-Mhome
 
 Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
@@ -348,6 +278,22 @@ Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
+
+(*Test Forward*)
+
+
+
+\[Beta]1f=\[Beta]1b
+\[Gamma]1f=\[Gamma]1b
+\[Beta]2f=\[Beta]2b
+\[Alpha]2f=\[Alpha]2b
+
+"M2f-Mhome"
+M2f-Mhome
+
+Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+
 
 "YMax"
 x1s=x1Home
@@ -362,11 +308,28 @@ Column[{"\[Degree]=\[Phi]"," "\[Phi]s*180/\[Pi]}]]
 "M2-homeM2"
 M2b-Mhome
 
+"M2-MyMax"
+M2b-MyMax
+
 Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
+
+(*Test Forward*)
+
+\[Beta]1f=180\[Degree]-\[Beta]1b
+\[Gamma]1f=\[Gamma]1b
+\[Beta]2f=\[Beta]2b
+\[Alpha]2f=\[Alpha]2b
+
+"M2f-Mhome"
+M2f-MyMax
+
+Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+
 
 "XMax"
 x1s=x1Max
@@ -381,13 +344,30 @@ Column[{"\[Degree]=\[Phi]"," "\[Phi]s*180/\[Pi]}]]
 "M2-homeM2"
 M2b-Mhome
 
+"M2-MxMax"
+M2b-MxMax
+
 Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
 
-"YXMax"
+(*Test Forward*)
+
+\[Beta]1f=\[Beta]1b
+\[Gamma]1f=\[Gamma]1b
+\[Beta]2f=\[Beta]2b
+\[Alpha]2f=\[Alpha]2b
+
+"M2f-Mhome"
+M2f-MxMax
+
+Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+
+
+"XYMax"
 x1s=x1Max
 y1s=y1Max
 
@@ -400,12 +380,27 @@ Column[{"\[Degree]=\[Phi]"," "\[Phi]s*180/\[Pi]}]]
 "M2-homeM2"
 M2b-Mhome
 
+"M2-MxyMax"
+M2b-MxyMax
+
 Print[Column[{"\[Degree]=\[Beta]1b"," "\[Beta]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Gamma]1b"," "\[Gamma]1b *180/\[Pi]}],
 Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
 
+(*Test Forward*)
+
+\[Beta]1f=\[Beta]1b
+\[Gamma]1f=\[Gamma]1b
+\[Beta]2f=\[Beta]2b
+\[Alpha]2f=\[Alpha]2b
+
+"M2f-Mhome"
+M2f-MxyMax
+
+Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
 
 
 
