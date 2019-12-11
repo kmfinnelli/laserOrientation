@@ -249,16 +249,16 @@ Column[{"\[Degree]=\[Beta]2b"," "\[Beta]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2b"," "\[Alpha]2b *180/\[Pi]}],
 Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]*)
 
-y1s=y1Home
+(*y1s=y1Home
 \[Alpha]2b;
 \[Theta]b=\[Theta]s
 \[Phi]b=\[Phi]s
 
-Plot[\[Alpha]2b*180/\[Pi],{x1s,x1Home,x1Max}]
+Plot[\[Alpha]2b*180/\[Pi],{x1s,x1Home,x1Max}]*)
 
 
 
-(*Test Values*)
+(*(*Test Values*)
 
 "Home"
 x1s=x1Home
@@ -292,10 +292,10 @@ Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
 M2f-Mhome
 
 Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
-Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]*)
 
 
-"YMax"
+(*"YMax"
 x1s=x1Home
 y1s=y1Max
 
@@ -328,10 +328,10 @@ Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
 M2f-MyMax
 
 Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
-Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]*)
 
 
-"XMax"
+(*"XMax"
 x1s=x1Max
 y1s=y1Home
 
@@ -364,10 +364,10 @@ Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
 M2f-MxMax
 
 Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
-Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]*)
 
 
-"XYMax"
+(*"XYMax"
 x1s=x1Max
 y1s=y1Max
 
@@ -400,7 +400,40 @@ Column[{"\[Degree]=\[Alpha]2bt"," "\[Alpha]2bt *180/\[Pi]}]]
 M2f-MxyMax
 
 Print[Column[{"\[Degree]=\[Theta]f"," "\[Theta]f*180/\[Pi]}],
-Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]
+Column[{"\[Degree]=\[Phi]f"," "\[Phi]f*180/\[Pi]}]]*)
+
+
+(*Get error propagation for theta and phi. I have two eqs for these, thetaS and phiS, which 
+are calculated from the M2 position, and thetaF and phiF, which depends on the mirror angles.
+We find the error from thetaF and phiF,*)
+
+\[Theta]f;
+\[Phi]f;
+
+\[Sigma]ThetaBeta1=D[\[Theta]f,\[Beta]1f];
+\[Sigma]ThetaGamma1=D[\[Theta]f,\[Gamma]1f];
+\[Sigma]ThetaBeta2=D[\[Theta]f,\[Beta]2f];
+\[Sigma]ThetaAlpha2=D[\[Theta]f,\[Alpha]2f];
+
+\[Sigma]PhiBeta1=D[\[Phi]f,\[Beta]1f];
+\[Sigma]PhiGamma1=D[\[Phi]f,\[Gamma]1f];
+\[Sigma]PhiBeta2=D[\[Phi]f,\[Beta]2f];
+\[Sigma]PhiAlpha2=D[\[Phi]f,\[Alpha]2f];
+
+\[Beta]1f=\[Beta]1b;
+\[Gamma]1f=\[Gamma]1b;
+\[Beta]2f=\[Beta]2b;
+\[Alpha]2f=\[Alpha]2b;
+
+DensityPlot[\[Sigma]ThetaBeta1^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+DensityPlot[\[Sigma]ThetaGamma1^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+DensityPlot[\[Sigma]ThetaBeta2^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+DensityPlot[\[Sigma]ThetaAlpha2^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+
+DensityPlot[\[Sigma]PhiBeta1^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+DensityPlot[\[Sigma]PhiGamma1^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+DensityPlot[\[Sigma]PhiBeta2^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
+DensityPlot[\[Sigma]PhiAlpha2^2/.\[Theta]b->q*\[Pi]/180/.\[Phi]b->u*\[Pi]/180,{q,0,85},{u,0,360},PlotPoints->{18,72},Mesh->Full,AxesLabel->{"\[Theta]","\[Phi]"},PlotLegends->Automatic]
 
 
 
